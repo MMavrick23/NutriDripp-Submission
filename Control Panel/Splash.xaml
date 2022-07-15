@@ -1,0 +1,28 @@
+﻿<Window x:Class="NutriDripp_CP.Splash"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NutriDripp_CP"
+        mc:Ignorable="d"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
+        SizeToContent="Width" Height="400" Closing="Window_Closing">
+    
+    <Grid>
+        <Image Source="/Resources/Images/Splash.png"/>
+
+        <Grid VerticalAlignment="Top" Margin="5" Opacity="0.75">
+            <TextBlock HorizontalAlignment="Left" TextAlignment="Left" FontFamily="Arial-Rounded" FontSize="18" Foreground="{DynamicResource OnTheme}" Text="Control Panel"/>
+            <TextBlock x:Name="CurrentVersionBuildTB" HorizontalAlignment="Right" TextAlignment="Right" FontFamily="Arial-Rounded" FontSize="18" Foreground="{DynamicResource OnTheme}" Text="Version: 0.0.0, Build: 1"/>
+        </Grid>
+
+        <Grid VerticalAlignment="Bottom">
+            <ProgressBar x:Name="LoadingProgressBar" Minimum="0" Maximum="100" Value="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource Tertiary}" Foreground="{DynamicResource Theme}"/>
+
+            <Grid Margin="5,3">
+                <TextBlock x:Name="LoadingProgressTB" HorizontalAlignment="Left" TextAlignment="Left" FontFamily="Arial" FontSize="12" Foreground="{DynamicResource OnTheme}" Text="Loading startup sequence..."/>
+                <Button Style="{StaticResource Hoverless}" Cursor="Hand" HorizontalAlignment="Right" FontFamily="Arial" FontSize="12" Foreground="{DynamicResource OnTheme}" Content="❌" Click="CloseBtn_Click"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

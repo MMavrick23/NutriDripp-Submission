@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700');
+@import './_01_mixins.scss';
+@import './_02_variables';
+@import './_03_core.scss';
+@import './_04_plugins.scss';
+@import './_05_views.scss';
+
+/** your custom css code **/
+
+html {
+  background-color: $background-color !important;
+}
+
+// todo add on rtl project only
+.rtl-form-label {
+  padding-right: 0 !important;
+
+  & label {
+    padding-right: 20px;
+  }
+}
+
+// end add on rtl project only
+
+.sticky {
+  position: sticky !important;
+  left: 0;
+  top: 0;
+}
+
+section {
+  outline: none;
+}
+
+section * {
+  outline: none;
+}
+
+@media all and (display-mode: standalone) {
+  body {
+    overscroll-behavior-y: contain;
+  }
+}
+
+.selected-table-td {
+  background: darken($separator-color, 5%) !important;
+}
+
+.table-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+
+  @media screen and (max-width: 400px) {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  & > h1 {
+    padding: 0;
+    margin: 0;
+
+    & > span {
+      margin-inline-start: 12px;
+      cursor: pointer;
+
+      &:hover i::before {
+        color: $theme-color-1;
+        transform: rotate(30deg);
+      }
+
+      & > i {
+
+        &::before {
+          transition: transform 300ms;
+        }
+      }
+    }
+  }
+}
+
+.table-page-editing-section {
+  display: flex;
+  height: max-content;
+  align-items: center;
+
+  div {
+    margin-bottom: 0 !important;
+  }
+}
+
+
+.table-page-table-container {
+  max-width: 100%;
+  overflow-x: auto;
+
+  td * {
+    width: max-content;
+  }
+}
+
+input:disabled{
+  opacity: 0.5;
+}
+
+//</editor-fold>

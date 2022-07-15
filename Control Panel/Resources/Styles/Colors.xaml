@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="Base" Color="#F5F4F4"/>
+    <SolidColorBrush x:Key="Theme" Color="#063149"/>
+
+    <SolidColorBrush x:Key="Primary" Color="#5EB25B"/>
+    <SolidColorBrush x:Key="Secondary" Color="#9CD398"/>
+    <SolidColorBrush x:Key="Tertiary" Color="#25978D"/>
+    <SolidColorBrush x:Key="Quaternary" Color="#66BCB2"/>
+
+    <SolidColorBrush x:Key="OnBase" Color="#063149"/>
+    <SolidColorBrush x:Key="OnTheme" Color="#F5F4F4"/>
+    <SolidColorBrush x:Key="OnPrimary" Color="#F5F4F4"/>
+    <SolidColorBrush x:Key="OnSecondary" Color="#000000"/>
+
+    <SolidColorBrush x:Key="Error" Color="#bf2e2e"/>
+    <SolidColorBrush x:Key="Warning" Color="#d1730f"/>
+</ResourceDictionary>

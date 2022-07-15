@@ -1,0 +1,434 @@
+﻿<Window x:Class="NutriDripp_CP.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:components="clr-namespace:NutriDripp_CP.Components"
+        mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280" Background="{DynamicResource Base}"
+        Title="NutriDripp Control Panel" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="37"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{DynamicResource Base}" BorderThickness="0,0,0,0.65" BorderBrush="Black">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Opacity="0.5" Direction="270" BlurRadius="25" ShadowDepth="0.5"/>
+            </Border.Effect>
+            
+            <Grid Margin="25,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="/Resources/Images/Logo.png"/>
+                <TextBlock Grid.Column="2" Padding="15,0" FontFamily="Arial-Rounded" FontSize="18" VerticalAlignment="Center" Background="Transparent" Foreground="Black" Text="Connected to [MMavrick23] Farm"/>
+
+                <!--<components:CButton Grid.Column="2" CornerRadius="20" Height="40" Padding="15,0" FontFamily="Arial-Rounded" FontSize="18" Background="Transparent" HoverColor="{DynamicResource Primary}" Foreground="Black" BorderBrush="{DynamicResource Primary}" BorderThickness="2" Content="Connect To Farm"/>-->
+            </Grid>
+        </Border>
+
+        <!-- Main Area -->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="MotherShipDataZone" Grid.Row="0" Margin="25">
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="0,3"/>
+                    </Style>
+
+                    <Style TargetType="Run" x:Key="ItemTitle">
+                        <Setter Property="Foreground" Value="{DynamicResource Primary}"/>
+                        <Setter Property="FontFamily" Value="Arial-Rounded"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+
+                    <Style TargetType="Run" BasedOn="{StaticResource ItemTitle}">
+                        <Setter Property="Foreground" Value="{DynamicResource OnBase}"/>
+                        <Setter Property="FontWeight" Value="Regular"/>
+                    </Style>
+                </Grid.Resources>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="AUTO"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox Grid.Column="0" Stretch="UniformToFill" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                    <TextBlock FontFamily="{StaticResource FontAwesome_Solid}" Text="&#xf2db;" Foreground="{DynamicResource Primary}" Margin="0"/>
+                </Viewbox>
+
+                <StackPanel Grid.Column="2" Margin="0,10">
+                    <TextBlock>
+                        <Run Text="Model Name:" Style="{StaticResource ItemTitle}"/>
+                        <Run Text="{Binding Name, Mode=OneWay, StringFormat={} {0}, FallbackValue= Unknown}"/>
+                    </TextBlock>
+                    
+                    <TextBlock>
+                        <Run Text="Model Version:" Style="{StaticResource ItemTitle}"/>
+                        <Run Text="{Binding Version, Mode=OneWay, StringFormat={} {0}, FallbackValue= Unknown}"/>
+                    </TextBlock>
+                    
+                    <TextBlock>
+                        <Run Text="Firmware Build:" Style="{StaticResource ItemTitle}"/>
+                        <Run Text="{Binding Build, Mode=OneWay, StringFormat={} {0}, FallbackValue= Unknown}"/>
+                    </TextBlock>
+
+                    <TextBlock>
+                        <Run Text="Serial Number:" Style="{StaticResource ItemTitle}"/>
+                        <Run Text="{Binding Serial, Mode=OneWay, StringFormat={} {0}, FallbackValue= Unknown}"/>
+                    </TextBlock>
+                </StackPanel>
+
+                <Grid Grid.Column="3" Margin="0,10">
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontFamily" Value="Arial-Rounded"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="Foreground" Value="{DynamicResource OnBase}"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </Grid.Resources>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" FontSize="21" FontWeight="Bold">
+                            <Run FontFamily="{StaticResource FontAwesome_Solid}">
+                                <Run.Style>
+                                    <Style TargetType="Run">
+                                        <Setter Property="Text" Value="&#xf071;"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Error}"/>
+                            
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Errors.Count}" Value="0">
+                                                <Setter Property="Text" Value="&#xf058;"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource OnBase}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Run.Style>
+                            </Run>
+                
+                            <Run>
+                                <Run.Style>
+                                    <Style TargetType="Run">
+                                        <Setter Property="Text" Value="Needs Attention"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Error}"/>
+                            
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Errors.Count}" Value="0">
+                                                <Setter Property="Text" Value="All Good"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource OnBase}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Run.Style>
+                            </Run>
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="1" Opacity="0.75">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="Text" Value="{Binding Errors.Count, StringFormat={}({0}) Pending issues.}"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Errors.Count}" Value="0">
+                                        <Setter Property="Text" Value="No detected errors."/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="3" FontSize="21" FontWeight="Bold">
+                            <Run FontFamily="{StaticResource FontAwesome_Solid}">
+                                <Run.Style>
+                                    <Style TargetType="Run">
+                                        <Setter Property="Text" Value="&#xf071;"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Error}"/>
+                            
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Status}" Value="-3">
+                                                <Setter Property="Text" Value="&#xf071;"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource Error}"/>
+                                            </DataTrigger>
+                                
+                                            <DataTrigger Binding="{Binding Status}" Value="-2">
+                                                <Setter Property="Text" Value="&#xf071;"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource Error}"/>
+                                            </DataTrigger>
+                                
+                                            <DataTrigger Binding="{Binding Status}" Value="-1">
+                                                <Setter Property="Text" Value="&#xf06a;"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource Warning}"/>
+                                            </DataTrigger>
+                                
+                                            <DataTrigger Binding="{Binding Status}" Value="1">
+                                                <Setter Property="Text" Value="&#xf06a;"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource OnBase}"/>
+                                            </DataTrigger>
+                                
+                                            <DataTrigger Binding="{Binding Status}" Value="2">
+                                                <Setter Property="Text" Value="&#xf058;"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource OnBase}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Run.Style>
+                            </Run>
+                
+                            <Run>
+                                <Run.Style>
+                                    <Style TargetType="Run">
+                                        <Setter Property="Text" Value="Failed To Boot"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Error}"/>
+                            
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Status}" Value="-3">
+                                                <Setter Property="Text" Value="Disconnected"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource Error}"/>
+                                            </DataTrigger>
+                                
+                                            <DataTrigger Binding="{Binding Status}" Value="-2">
+                                                <Setter Property="Text" Value="Halted By Error"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource Error}"/>
+                                            </DataTrigger>
+                                
+                                            <DataTrigger Binding="{Binding Status}" Value="-1">
+                                                <Setter Property="Text" Value="Busy/Not Ready"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource Warning}"/>
+                                            </DataTrigger>
+                                
+                                            <DataTrigger Binding="{Binding Status}" Value="1">
+                                                <Setter Property="Text" Value="Initialize Pending"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource OnBase}"/>
+                                            </DataTrigger>
+                                
+                                            <DataTrigger Binding="{Binding Status}" Value="2">
+                                                <Setter Property="Text" Value="Ready To Operate"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource OnBase}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Run.Style>
+                            </Run>
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="4" Opacity="0.75">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="Text" Value="Stuck at boot for errors."/>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Status}" Value="-3">
+                                        <Setter Property="Text" Value="No heartbeat received."/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Status}" Value="-2">
+                                        <Setter Property="Text" Value="High severity error occured."/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Status}" Value="-1">
+                                        <Setter Property="Text" Value="Handling a critical process."/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Status}" Value="1">
+                                        <Setter Property="Text" Value="Booted &amp; ready to initialize."/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Status}" Value="2">
+                                        <Setter Property="Text" Value="Initialized &amp; connected."/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+
+                <Grid Grid.Column="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <components:CButton Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" CornerRadius="10" Padding="0" Content="&#xf021;"
+                                        FontFamily="{StaticResource FontAwesome_Solid}" FontSize="25" BorderThickness="0" Cursor="Hand" Click="RestartBtn_Click"
+                                        Background="{DynamicResource Warning}" HoverColor="{DynamicResource Primary}" Foreground="{DynamicResource OnPrimary}"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <components:CButton Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" CornerRadius="10" Padding="0" Content="&#xf135;"
+                                        FontFamily="{StaticResource FontAwesome_Solid}" FontSize="25" BorderThickness="0" Cursor="Hand" Click="InitializeBtn_Click"
+                                        Background="{DynamicResource Secondary}" HoverColor="{DynamicResource Primary}" Foreground="{DynamicResource OnSecondary}"/>
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Status}" Value="1">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <components:CButton Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" CornerRadius="10" Padding="0" Content="&#xf1e6;"
+                                        FontFamily="{StaticResource FontAwesome_Solid}" FontSize="25" BorderThickness="0" Cursor="Hand" Click="ReconnectBtn_Click"
+                                        Background="{DynamicResource Secondary}" HoverColor="{DynamicResource Primary}" Foreground="{DynamicResource OnSecondary}"/>
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="25"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Resources>
+                    <Style TargetType="Rectangle" x:Key="RectangleAsLine">
+                        <Setter Property="Fill" Value="{DynamicResource OnBase}"/>
+                        <Setter Property="Height" Value="3"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0,26.5,0,0"/>
+                    </Style>
+                </Grid.Resources>
+                
+                <Rectangle Grid.Column="0" Style="{StaticResource RectangleAsLine}"/>
+
+                <TabControl Grid.Column="1" Background="Transparent" BorderThickness="0,3,0,0" BorderBrush="{DynamicResource OnBase}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        FontFamily="Arial-Rounded" FontSize="18">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem" BasedOn="{StaticResource BaseTabItem}">
+                            <Setter Property="Padding" Value="15,2"/>
+                        </Style>
+                    </TabControl.Resources>
+
+                    <TabItem Header="Basic"/>
+
+                    <TabItem Header="Detailed">
+                        <StackPanel>
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontFamily" Value="Arial-Rounded"/>
+                                    <Setter Property="FontSize" Value="23"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            
+                            <TextBlock Text="Temperature: 38° C"/>
+                            <TextBlock Text="Humidity: 21%"/>
+                            <TextBlock Text="In Valve: On"/>
+                            <TextBlock Text="Out Valve: Off"/>
+                            <TextBlock Text="Flow Rate In: 10 L/s"/>
+                            <TextBlock Text="Flow Rate Out: 0 L/s"/>
+                            <TextBlock Text="Reservoire Quantity: 5 Liters"/>
+                            <TextBlock Text="Fluid Temperatrature: 31° C"/>
+                            <TextBlock Text="PH: UNKNOWN"/>
+                            <TextBlock Text="Fertelizer Quantity: 0%"/>
+                            <TextBlock Text="Fertlizer State: Off"/>
+                            <TextBlock Text="Soil Moisture: 30%"/>
+                            <TextBlock Text="Soil Temperature: 33° C"/>
+                            <TextBlock Text="Soil Emmisions: UNKNOWN"/>
+                        </StackPanel>
+                    </TabItem>
+
+                    <TabItem Header="Statistics"/>
+
+                    <TabItem Header="Procedures"/>
+                    
+                    <TabItem Header="Rules"/>
+                    
+                    <TabItem Header="Devices">
+                        <ListBox x:Name="DevicesList" Background="Transparent" BorderThickness="0" Padding="0,5,0,0" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                <ContentPresenter/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <components:DeviceItem/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </TabItem>
+                    
+                    <TabItem Header="Activity"/>
+                </TabControl>
+
+                <Rectangle Grid.Column="2" Style="{StaticResource RectangleAsLine}"/>
+            </Grid>
+        </Grid>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2" Background="{DynamicResource Theme}" BorderThickness="0,0.65,0,0" BorderBrush="Black">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Opacity="0.5" Direction="90" BlurRadius="25" ShadowDepth="1"/>
+            </Border.Effect>
+
+            <Grid Margin="25,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="{DynamicResource OnTheme}"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </Grid.Resources>
+
+                <TextBlock Grid.Column="0" FontFamily="{StaticResource FontAwesome_Regular}" FontSize="21" Text="&#xf058;"/>
+                <TextBlock Grid.Column="2" FontFamily="Arial" FontSize="14" Text="Ready"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
